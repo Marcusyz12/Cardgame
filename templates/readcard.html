@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Card Database{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Card Database</h1>
+<div>
+  {% if count == 0 %}
+  <p>There are no cards.</p>
+  {% elif count == 1 %}
+  <p>There is 1 card.</p>
+  {% else %}
+  <p>There are {{ count }} cards.</p>
+  {% endif %}
+</div>
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Card ID</th>
+        <th>Card Set</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Subtype</th>
+        <th>Cost</th>
+        <th>Ability</th>
+        <th>Flavor</th>
+        <th>Attack</th>
+        <th>Defense</th>
+        <th>Speed</th>
+        <th>Art</th>
+        <th>Designer</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for card in card_list %}
+     <tr>
+        {% for i in range(14) %}
+        <td> {{ card[i] }}</td>
+        {% endfor %}
+        <td><a href="/update/{{ card[0]}}" class="btn btn-warning">Update</a></td>
+        <td>
+          <form action="{{url_for('delete', id= card[0])}}" method="POST">
+<!--            <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?');">-->
+<!-- Button to Open the Modal -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal_{{ card[0]}}">
+  Delete
+</button>
+
+<!-- The Modal -->
+<div class="modal" id="myModal_{{ card[0]}}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Confirmation</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Are you sure you want to delete?
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <input type="submit" value="Delete" class="btn btn-danger">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+          </form>
+        </td>
+     </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

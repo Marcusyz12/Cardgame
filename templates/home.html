@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div id="change" style="margin-top: 20px; margin-left: 20px;"></div>
+
+<script>
+        const changelogMarkdown = `
+# Changelog
+
+## v1.0.0 (22/2/2024)
+
+### Added
+- Added this changelog
+- Added CRUD
+- Added SQLite Database
+
+
+
+`;
+
+        const md = window.markdownit();
+        const html = md.render(changelogMarkdown);
+        document.getElementById('change').innerHTML = html;
+    </script>
+{% endblock %}
